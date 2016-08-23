@@ -1,0 +1,193 @@
+Grammar
+
+    0 $accept: comando $end
+
+    1 comando: expressao
+
+    2 expressao: expressao '+' termo
+    3          | expressao '-' termo
+    4          | termo
+
+    5 termo: termo '*' fator
+    6      | fator
+
+    7 fator: NUM
+    8      | '(' expressao ')'
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 8
+')' (41) 8
+'*' (42) 5
+'+' (43) 2
+'-' (45) 3
+error (256)
+NUM (258) 7
+
+
+Nonterminals, with rules where they appear
+
+$accept (9)
+    on left: 0
+comando (10)
+    on left: 1, on right: 0
+expressao (11)
+    on left: 2 3 4, on right: 1 2 3 8
+termo (12)
+    on left: 5 6, on right: 2 3 4 5
+fator (13)
+    on left: 7 8, on right: 5 6
+
+
+state 0
+
+    0 $accept: . comando $end
+
+    NUM  shift, and go to state 1
+    '('  shift, and go to state 2
+
+    comando    go to state 3
+    expressao  go to state 4
+    termo      go to state 5
+    fator      go to state 6
+
+
+state 1
+
+    7 fator: NUM .
+
+    $default  reduce using rule 7 (fator)
+
+
+state 2
+
+    8 fator: '(' . expressao ')'
+
+    NUM  shift, and go to state 1
+    '('  shift, and go to state 2
+
+    expressao  go to state 7
+    termo      go to state 5
+    fator      go to state 6
+
+
+state 3
+
+    0 $accept: comando . $end
+
+    $end  shift, and go to state 8
+
+
+state 4
+
+    1 comando: expressao .
+    2 expressao: expressao . '+' termo
+    3          | expressao . '-' termo
+
+    '+'  shift, and go to state 9
+    '-'  shift, and go to state 10
+
+    $default  reduce using rule 1 (comando)
+
+
+state 5
+
+    4 expressao: termo .
+    5 termo: termo . '*' fator
+
+    '*'  shift, and go to state 11
+
+    $default  reduce using rule 4 (expressao)
+
+
+state 6
+
+    6 termo: fator .
+
+    $default  reduce using rule 6 (termo)
+
+
+state 7
+
+    2 expressao: expressao . '+' termo
+    3          | expressao . '-' termo
+    8 fator: '(' expressao . ')'
+
+    '+'  shift, and go to state 9
+    '-'  shift, and go to state 10
+    ')'  shift, and go to state 12
+
+
+state 8
+
+    0 $accept: comando $end .
+
+    $default  accept
+
+
+state 9
+
+    2 expressao: expressao '+' . termo
+
+    NUM  shift, and go to state 1
+    '('  shift, and go to state 2
+
+    termo  go to state 13
+    fator  go to state 6
+
+
+state 10
+
+    3 expressao: expressao '-' . termo
+
+    NUM  shift, and go to state 1
+    '('  shift, and go to state 2
+
+    termo  go to state 14
+    fator  go to state 6
+
+
+state 11
+
+    5 termo: termo '*' . fator
+
+    NUM  shift, and go to state 1
+    '('  shift, and go to state 2
+
+    fator  go to state 15
+
+
+state 12
+
+    8 fator: '(' expressao ')' .
+
+    $default  reduce using rule 8 (fator)
+
+
+state 13
+
+    2 expressao: expressao '+' termo .
+    5 termo: termo . '*' fator
+
+    '*'  shift, and go to state 11
+
+    $default  reduce using rule 2 (expressao)
+
+
+state 14
+
+    3 expressao: expressao '-' termo .
+    5 termo: termo . '*' fator
+
+    '*'  shift, and go to state 11
+
+    $default  reduce using rule 3 (expressao)
+
+
+state 15
+
+    5 termo: termo '*' fator .
+
+    $default  reduce using rule 5 (termo)
