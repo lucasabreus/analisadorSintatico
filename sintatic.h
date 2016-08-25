@@ -39,47 +39,69 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     ID = 258,
-     NUM = 259,
-     TYPE = 260,
-     SIMBOLO = 261,
-     MAIS = 262,
-     MENOS = 263,
-     VEZES = 264,
-     DIVISAO = 265,
-     MENOR = 266,
-     MAIOR = 267,
-     VIRGULA = 268,
-     ABREPARENTESIS = 269,
-     FECHAPARENTESIS = 270,
-     ABRECOLCHETES = 271,
-     FECHACOLCHETES = 272,
-     ABRECHAVES = 273,
-     FECHACHAVES = 274,
-     IGUAL = 275,
-     PV = 276
+     SEX = 258,
+     SENAOX = 259,
+     ID = 260,
+     NUM = 261,
+     SIMBOLO = 262,
+     MAIS = 263,
+     MENOS = 264,
+     VEZES = 265,
+     DIVISAO = 266,
+     MENOR = 267,
+     MAIOR = 268,
+     VIRGULA = 269,
+     ABREPARENTESIS = 270,
+     FECHAPARENTESIS = 271,
+     ABRECOLCHETES = 272,
+     FECHACOLCHETES = 273,
+     ABRECHAVES = 274,
+     FECHACHAVES = 275,
+     IGUAL = 276,
+     PV = 277,
+     SE = 278,
+     SENAO = 279,
+     RETORNO = 280,
+     ENQUANTO = 281,
+     VAZIO = 282,
+     INTEIRO = 283,
+     MAIORIGUAL = 284,
+     MENORIGUAL = 285,
+     IGUALIGUAL = 286,
+     DIFERENTE = 287
    };
 #endif
 /* Tokens.  */
-#define ID 258
-#define NUM 259
-#define TYPE 260
-#define SIMBOLO 261
-#define MAIS 262
-#define MENOS 263
-#define VEZES 264
-#define DIVISAO 265
-#define MENOR 266
-#define MAIOR 267
-#define VIRGULA 268
-#define ABREPARENTESIS 269
-#define FECHAPARENTESIS 270
-#define ABRECOLCHETES 271
-#define FECHACOLCHETES 272
-#define ABRECHAVES 273
-#define FECHACHAVES 274
-#define IGUAL 275
-#define PV 276
+#define SEX 258
+#define SENAOX 259
+#define ID 260
+#define NUM 261
+#define SIMBOLO 262
+#define MAIS 263
+#define MENOS 264
+#define VEZES 265
+#define DIVISAO 266
+#define MENOR 267
+#define MAIOR 268
+#define VIRGULA 269
+#define ABREPARENTESIS 270
+#define FECHAPARENTESIS 271
+#define ABRECOLCHETES 272
+#define FECHACOLCHETES 273
+#define ABRECHAVES 274
+#define FECHACHAVES 275
+#define IGUAL 276
+#define PV 277
+#define SE 278
+#define SENAO 279
+#define RETORNO 280
+#define ENQUANTO 281
+#define VAZIO 282
+#define INTEIRO 283
+#define MAIORIGUAL 284
+#define MENORIGUAL 285
+#define IGUALIGUAL 286
+#define DIFERENTE 287
 
 
 
@@ -92,7 +114,7 @@ typedef union YYSTYPE
     void* no_t;
 }
 /* Line 1529 of yacc.c.  */
-#line 96 "sintatic.h"
+#line 118 "sintatic.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

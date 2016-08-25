@@ -7,4 +7,4 @@ all:
 
 	gcc -o bin sintatic.c -ll -ly 
 
-	./bin < arquivo.txt
+	./bin < entradas/sort2.comp

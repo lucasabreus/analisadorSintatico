@@ -6,9 +6,9 @@
 #include "lex.yy.c"
 #include <string.h>
 
-int yyerror(char * s) {
-	return 0;
-} 
+void yyerror(char *s) {
+    fprintf(stderr, "line %d: %s\n", yylineno, s);
+}
 
 typedef struct no{
 	char* nome;
@@ -32,9 +32,11 @@ void imprime ( no a, int espacos ){
     void* no_t;
 }
 
+%nonassoc SEX
+%nonassoc SENAOX
+
 %token <str_t> ID
 %token <str_t> NUM
-%token <str_t> TYPE
 %token <str_t> SIMBOLO
 %token <str_t> MAIS
 %token <str_t> MENOS
@@ -51,6 +53,16 @@ void imprime ( no a, int espacos ){
 %token <str_t> FECHACHAVES
 %token <str_t> IGUAL
 %token <str_t> PV
+%token <str_t> SE
+%token <str_t> SENAO
+%token <str_t> RETORNO
+%token <str_t> ENQUANTO
+%token <str_t> VAZIO
+%token <str_t> INTEIRO
+%token <str_t> MAIORIGUAL
+%token <str_t> MENORIGUAL
+%token <str_t> IGUALIGUAL
+%token <str_t> DIFERENTE
 
 %type <no_t> programa;
 %type <no_t> listadeclaracoes;
@@ -80,6 +92,8 @@ void imprime ( no a, int espacos ){
 %type <no_t> mult;
 %type <no_t> argumentos;
 %type <no_t> listaargumentos;
+%type <no_t> tipo;
+%type <no_t> identificador;
 
 %%
 programa : listadeclaracoes { 	
@@ -126,39 +140,58 @@ declaracao : declaracaovariaveis {
 									$$ = aux;
 								}
 
-declaracaovariaveis : TYPE ID PV {
+tipo : INTEIRO {
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("tipo");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+
+	no * f1 = (no*) malloc(sizeof(no));
+	f1->nome = strdup(yytext);
+	f1->qtd = 0;
+	aux->filhos[0] = *f1;
+	aux->qtd = 1;
+	$$ = aux;
+} | VAZIO {
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("tipo");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+
+	no * f1 = (no*) malloc(sizeof(no));
+	f1->nome = strdup(yytext);
+	f1->qtd = 0;
+	aux->filhos[0] = *f1;
+	aux->qtd = 1;
+	$$ = aux;
+}
+
+identificador : ID {
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("ID");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+	aux->qtd = 0;
+	$$ = aux;
+}
+
+declaracaovariaveis : tipo identificador PV {
 									no * aux = (no*) malloc(sizeof(no));
 									aux->nome = strdup("declaracaoVariaveis");
 									aux->filhos = (no*)malloc(sizeof(no) * 100);
-
-									no * f1 = (no*) malloc(sizeof(no));
-									f1->nome = strdup($1);
-									f1->qtd = 0;
-									no * f2 = (no*) malloc(sizeof(no));
-									f2->nome = strdup($2);
-									f2->qtd = 0;
 									no * f3 = (no*) malloc(sizeof(no));
-									f3->nome = strdup($3);
+									f3->nome = strdup(";");
 									f3->qtd = 0;
 
-									aux->filhos[0] = *f1;
-									aux->filhos[1] = *f2;
+									aux->filhos[0] = *((no*)$1);
+									aux->filhos[1] = *((no*)$2);
 									aux->filhos[2] = *f3;
 									aux->qtd = 3;
 									$$ = aux;
 								 } 
-				    | TYPE ID ABRECOLCHETES NUM FECHACOLCHETES PV { 
+				    | tipo ID ABRECOLCHETES NUM FECHACOLCHETES PV { 
 				    				no * aux = (no*) malloc(sizeof(no));
 				    				no * tipo = (no*) malloc(sizeof(no));
 									aux->nome = strdup("listadeclaracoes");
 									aux->filhos = (no*)malloc(sizeof(no) * 100);
 
-									no * f1 = (no*) malloc(sizeof(no));
-									f1->nome = strdup("TIPO");
-									f1->qtd = 0;
-									no * f2 = (no*) malloc(sizeof(no));
-									f2->nome = strdup("ID");
-									f2->qtd = 0;
 									no * f3 = (no*) malloc(sizeof(no));
 									f3->nome = strdup("[");
 									f3->qtd = 0;
@@ -172,8 +205,8 @@ declaracaovariaveis : TYPE ID PV {
 									f6->nome = strdup(";");
 									f6->qtd = 0;
 
-									aux->filhos[0] = *f1;
-									aux->filhos[1] = *f2;
+									aux->filhos[0] = *((no*)$1);
+									aux->filhos[1] = *((no*)$1);
 									aux->filhos[2] = *f3;
 									aux->filhos[3] = *f4;
 									aux->filhos[4] = *f5;
@@ -182,17 +215,11 @@ declaracaovariaveis : TYPE ID PV {
 									$$ = aux;
 				    			}
 
-declaracaofuncoes : TYPE ID ABREPARENTESIS parametros FECHAPARENTESIS declaracaocomposta{ 
+declaracaofuncoes : tipo identificador ABREPARENTESIS parametros FECHAPARENTESIS declaracaocomposta{ 
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaofuncoes");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
 	
-	no * f1 = (no*) malloc(sizeof(no));
-	f1->nome = strdup("TIPO");
-	f1->qtd = 0;
-	no * f2 = (no*) malloc(sizeof(no));
-	f2->nome = strdup("ID");
-	f2->qtd = 0;
 	no * f3 = (no*) malloc(sizeof(no));
 	f3->nome = strdup("(");
 	f3->qtd = 0;
@@ -200,8 +227,8 @@ declaracaofuncoes : TYPE ID ABREPARENTESIS parametros FECHAPARENTESIS declaracao
 	f5->nome = strdup(")");
 	f5->qtd = 0;
 
-	aux->filhos[0] = *f1;
-	aux->filhos[1] = *f2;
+	aux->filhos[0] = *((no*)$1);
+	aux->filhos[1] = *((no*)$2);
 	aux->filhos[2] = *f3;
 	aux->filhos[3] = *((no*)$4);
 	aux->filhos[4] = *f5;
@@ -219,7 +246,7 @@ parametros : listaparametros {
 	aux->filhos[aux->qtd++] = *((no*)$1);
 	$$ = aux;
 } 
-| 'void' {
+| VAZIO {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("parametros");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -252,34 +279,21 @@ listaparametros : listaparametros VIRGULA param {
 	$$ = aux;
 }
 
-param : TYPE ID { 
+param : tipo identificador { 
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("param");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
 
-	no * f1 = (no*) malloc(sizeof(no));
-	f1->nome = strdup("TIPO");
-	f1->qtd = 0;
-	no * f2 = (no*) malloc(sizeof(no));
-	f2->nome = strdup("ID");
-	f2->qtd = 0;
-
-	aux->filhos[0] = *f1;
-	aux->filhos[1] = *f2;
+	aux->filhos[0] = *((no*)$1);;
+	aux->filhos[1] = *((no*)$2);
 	aux->qtd = 2;
 	$$ = aux;
 }
-| TYPE ID ABRECOLCHETES NUM FECHACOLCHETES {
+| tipo ID ABRECOLCHETES NUM FECHACOLCHETES {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("param");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
 
-	no * f1 = (no*) malloc(sizeof(no));
-	f1->nome = strdup("TIPO");
-	f1->qtd = 0;
-	no * f2 = (no*) malloc(sizeof(no));
-	f2->nome = strdup("ID");
-	f2->qtd = 0;
 	no * f3 = (no*) malloc(sizeof(no));
 	f3->nome = strdup("[");
 	f3->qtd = 0;
@@ -290,8 +304,8 @@ param : TYPE ID {
 	f5->nome = strdup("]");
 	f5->qtd = 0;
 
-	aux->filhos[0] = *f1;
-	aux->filhos[1] = *f2;
+	aux->filhos[0] = *((no*)$1);
+	aux->filhos[1] = *((no*)$2);
 	aux->filhos[2] = *f3;
 	aux->filhos[3] = *f4;
 	aux->filhos[4] = *f5;
@@ -319,7 +333,7 @@ declaracaocomposta : ABRECHAVES declaracoeslocais listacomandos FECHACHAVES {
 	$$ = aux;
 }
 
-declaracoeslocais : declaracoeslocais declaracaovariaveis { 
+declaracoeslocais : declaracoeslocais declaracaovariaveis {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracoeslocais");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -358,24 +372,28 @@ comando : declaracaoexpressao {
 	aux->filhos[aux->qtd++] = *((no*)$1);
 	$$ = aux;
 } | declaracaocomposta {
+	printf("Comando\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("comando");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
 	aux->filhos[aux->qtd++] = *((no*)$1);
 	$$ = aux;
 } | declaracaoselecao {
+	printf("Comando\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("comando");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
 	aux->filhos[aux->qtd++] = *((no*)$1);
 	$$ = aux;
 } | declaracaoiteracao {
+	printf("Comando\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("comando");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
 	aux->filhos[aux->qtd++] = *((no*)$1);
 	$$ = aux;
 } | declaracaoretorno {
+	printf("Comando\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("comando");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -383,7 +401,8 @@ comando : declaracaoexpressao {
 	$$ = aux;
 }
 
-declaracaoiteracao : 'while' ABREPARENTESIS expressao FECHAPARENTESIS comando {
+declaracaoiteracao : ENQUANTO ABREPARENTESIS expressao FECHAPARENTESIS comando {
+	printf("DeclaracaoIteracao\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaocomposta");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -408,6 +427,7 @@ declaracaoiteracao : 'while' ABREPARENTESIS expressao FECHAPARENTESIS comando {
 }
 
 declaracaoexpressao : expressao PV {
+	printf("DeclaracaoExpressao\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaoexpressao");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -421,6 +441,7 @@ declaracaoexpressao : expressao PV {
 	aux->qtd = 2;
 	$$ = aux;
 } | PV {
+	printf("DeclaracaoExpressao\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaoexpressao");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -433,6 +454,7 @@ declaracaoexpressao : expressao PV {
 }
 
 expressao : variavel IGUAL expressao {
+	printf("Expressao\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("expressao");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -447,6 +469,7 @@ expressao : variavel IGUAL expressao {
 	aux->qtd = 3;
 	$$ = aux;
 } | expressaosimples {
+	printf("Expressao\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("expressao");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -456,30 +479,26 @@ expressao : variavel IGUAL expressao {
 	$$ = aux;
 }
 
-variavel : ID {
+variavel : identificador {
+	printf("Variavel\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("variavel");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
-		no * f1 = (no*) malloc(sizeof(no));
-		f1->nome = strdup(yytext);
-		f1->qtd = 0;
-		aux->filhos[0] = *f1;
+	aux->filhos[0] = *((no*)$1);;
 	aux->qtd = 0;
 	$$ = aux;
-} | ID ABRECOLCHETES expressao FECHACOLCHETES {
+} | identificador ABRECOLCHETES expressao FECHACOLCHETES {
+	printf("Variavel\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("variavel");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
-		no * f1 = (no*) malloc(sizeof(no));
-		f1->nome = strdup("ID");
-		f1->qtd = 0;
 		no * f2 = (no*) malloc(sizeof(no));
 		f2->nome = strdup("[");
 		f2->qtd = 0;
 		no * f4 = (no*) malloc(sizeof(no));
 		f4->nome = strdup("]");
 		f4->qtd = 0;
-		aux->filhos[0] = *f1;
+		aux->filhos[0] = *((no*)$1);
 		aux->filhos[1] = *f2;
 		aux->filhos[2] = *((no*)$3);
 		aux->filhos[3] = *f4;
@@ -488,8 +507,17 @@ variavel : ID {
 }
 
 expressaosimples : somaexpressao oprelacional somaexpressao {
-	
+	printf("ExpressaoSimples\n");
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("expressaosimples");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+	aux->qtd = 3;
+	aux->filhos[0] = *((no*)$1);
+	aux->filhos[1] = *((no*)$2);
+	aux->filhos[2] = *((no*)$3);
+	$$ = aux;
 } | somaexpressao {
+	printf("ExpressaoSimples\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("expressaosimples");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -499,6 +527,7 @@ expressaosimples : somaexpressao oprelacional somaexpressao {
 }
 
 declaracaocomposta : /*epsilon*/ {
+	printf("DeclaracaoComposta\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaocomposta");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -506,7 +535,8 @@ declaracaocomposta : /*epsilon*/ {
 	$$ = aux;
 }
 
-declaracaoretorno : 'return' PV {
+declaracaoretorno : RETORNO PV {
+	printf("DeclaracaoRetorno\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaoretorno");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -520,7 +550,8 @@ declaracaoretorno : 'return' PV {
 		aux->filhos[1] = *f2;
 	aux->qtd = 2;
 	$$ = aux;
-} | 'return' expressao PV {
+} | RETORNO expressao PV {
+	printf("DeclaracaoRetorno\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaoretorno");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -537,7 +568,8 @@ declaracaoretorno : 'return' PV {
 	$$ = aux;
 }
 
-declaracaoselecao : 'if' ABREPARENTESIS expressao FECHAPARENTESIS comando {
+declaracaoselecao : SE ABREPARENTESIS expressao FECHAPARENTESIS comando %prec SEX {
+	printf("DeclaracaoSelecao\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaoselecao");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -558,7 +590,7 @@ declaracaoselecao : 'if' ABREPARENTESIS expressao FECHAPARENTESIS comando {
 	aux->filhos[4] = *((no*)$5);
 	aux->qtd = 5;
 	$$ = aux;
-} | 'if' ABREPARENTESIS expressao FECHAPARENTESIS comando 'else' comando {
+} | SE ABREPARENTESIS expressao FECHAPARENTESIS comando SENAO comando {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaoselecao");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -586,7 +618,7 @@ declaracaoselecao : 'if' ABREPARENTESIS expressao FECHAPARENTESIS comando {
 	$$ = aux;
 }
 
-oprelacional : '<=' { 
+oprelacional : MENORIGUAL { 
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("<=");
 	aux->qtd = 0;
@@ -601,17 +633,17 @@ oprelacional : '<=' {
 	aux->nome = strdup(">");
 	aux->qtd = 0;
 	$$ = aux;
-} | '>=' {
+} | MAIORIGUAL {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup(">=");
 	aux->qtd = 0;
 	$$ = aux;
-} | '==' {
+} | IGUALIGUAL {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("==");
 	aux->qtd = 0;
 	$$ = aux;
-} | '!='{
+} | DIFERENTE{
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("!=");
 	aux->qtd = 0;
@@ -712,25 +744,25 @@ fator : ABREPARENTESIS expressao FECHAPARENTESIS {
 	aux->nome = strdup("fator");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
 	aux->qtd = 0;
-	aux->filhos[aux->qtd++] = *((no*)$1);
+	no * f4 = (no*) malloc(sizeof(no));
+	f4->nome = strdup(yytext);
+	f4->qtd = 0;
+	aux->filhos[aux->qtd++] = *f4;
 	$$ = aux;
 }
 
-ativacao : ID ABREPARENTESIS argumentos FECHAPARENTESIS {
+ativacao : identificador ABREPARENTESIS argumentos FECHAPARENTESIS {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("ativacao");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
 	aux->qtd = 0;
-	no * f1 = (no*) malloc(sizeof(no));
-	f1->nome = strdup("ID");
-	f1->qtd = 0;
 	no * f2 = (no*) malloc(sizeof(no));
 	f2->nome = strdup("(");
 	f2->qtd = 0;
 	no * f3 = (no*) malloc(sizeof(no));
 	f3->nome = strdup(")");
 	f3->qtd = 0;
-	aux->filhos[aux->qtd++] = *f1;
+	aux->filhos[aux->qtd++] = *((no*)$1);
 	aux->filhos[aux->qtd++] = *f2;
 	aux->filhos[aux->qtd++] = *((no*)$3);
 	aux->filhos[aux->qtd++] = *f3;

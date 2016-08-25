@@ -66,47 +66,69 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     ID = 258,
-     NUM = 259,
-     TYPE = 260,
-     SIMBOLO = 261,
-     MAIS = 262,
-     MENOS = 263,
-     VEZES = 264,
-     DIVISAO = 265,
-     MENOR = 266,
-     MAIOR = 267,
-     VIRGULA = 268,
-     ABREPARENTESIS = 269,
-     FECHAPARENTESIS = 270,
-     ABRECOLCHETES = 271,
-     FECHACOLCHETES = 272,
-     ABRECHAVES = 273,
-     FECHACHAVES = 274,
-     IGUAL = 275,
-     PV = 276
+     SEX = 258,
+     SENAOX = 259,
+     ID = 260,
+     NUM = 261,
+     SIMBOLO = 262,
+     MAIS = 263,
+     MENOS = 264,
+     VEZES = 265,
+     DIVISAO = 266,
+     MENOR = 267,
+     MAIOR = 268,
+     VIRGULA = 269,
+     ABREPARENTESIS = 270,
+     FECHAPARENTESIS = 271,
+     ABRECOLCHETES = 272,
+     FECHACOLCHETES = 273,
+     ABRECHAVES = 274,
+     FECHACHAVES = 275,
+     IGUAL = 276,
+     PV = 277,
+     SE = 278,
+     SENAO = 279,
+     RETORNO = 280,
+     ENQUANTO = 281,
+     VAZIO = 282,
+     INTEIRO = 283,
+     MAIORIGUAL = 284,
+     MENORIGUAL = 285,
+     IGUALIGUAL = 286,
+     DIFERENTE = 287
    };
 #endif
 /* Tokens.  */
-#define ID 258
-#define NUM 259
-#define TYPE 260
-#define SIMBOLO 261
-#define MAIS 262
-#define MENOS 263
-#define VEZES 264
-#define DIVISAO 265
-#define MENOR 266
-#define MAIOR 267
-#define VIRGULA 268
-#define ABREPARENTESIS 269
-#define FECHAPARENTESIS 270
-#define ABRECOLCHETES 271
-#define FECHACOLCHETES 272
-#define ABRECHAVES 273
-#define FECHACHAVES 274
-#define IGUAL 275
-#define PV 276
+#define SEX 258
+#define SENAOX 259
+#define ID 260
+#define NUM 261
+#define SIMBOLO 262
+#define MAIS 263
+#define MENOS 264
+#define VEZES 265
+#define DIVISAO 266
+#define MENOR 267
+#define MAIOR 268
+#define VIRGULA 269
+#define ABREPARENTESIS 270
+#define FECHAPARENTESIS 271
+#define ABRECOLCHETES 272
+#define FECHACOLCHETES 273
+#define ABRECHAVES 274
+#define FECHACHAVES 275
+#define IGUAL 276
+#define PV 277
+#define SE 278
+#define SENAO 279
+#define RETORNO 280
+#define ENQUANTO 281
+#define VAZIO 282
+#define INTEIRO 283
+#define MAIORIGUAL 284
+#define MENORIGUAL 285
+#define IGUALIGUAL 286
+#define DIFERENTE 287
 
 
 
@@ -120,9 +142,9 @@
 #include "lex.yy.c"
 #include <string.h>
 
-int yyerror(char * s) {
-	return 0;
-} 
+void yyerror(char *s) {
+    fprintf(stderr, "line %d: %s\n", yylineno, s);
+}
 
 typedef struct no{
 	char* nome;
@@ -166,7 +188,7 @@ typedef union YYSTYPE
     void* no_t;
 }
 /* Line 193 of yacc.c.  */
-#line 170 "sintatic.c"
+#line 192 "sintatic.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -179,7 +201,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 183 "sintatic.c"
+#line 205 "sintatic.c"
 
 #ifdef short
 # undef short
@@ -392,22 +414,22 @@ union yyalloc
 #endif
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  8
+#define YYFINAL  9
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   95
+#define YYLAST   104
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  31
+#define YYNTOKENS  33
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  29
+#define YYNNTS  31
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  62
+#define YYNRULES  65
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  101
+#define YYNSTATES  106
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   276
+#define YYMAXUTOK   287
 
 #define YYTRANSLATE(YYX)						\
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -418,15 +440,15 @@ static const yytype_uint8 yytranslate[] =
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,    30,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      27,    29,    28,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,    26,     2,     2,     2,    25,     2,     2,     2,     2,
-       2,     2,     2,     2,    24,     2,     2,     2,    22,    23,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -442,7 +464,8 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    19,    20,    21
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25,    26,    27,    28,    29,    30,    31,    32
 };
 
 #if YYDEBUG
@@ -450,49 +473,49 @@ static const yytype_uint8 yytranslate[] =
    YYRHS.  */
 static const yytype_uint8 yyprhs[] =
 {
-       0,     0,     3,     5,     8,    10,    12,    14,    18,    25,
-      32,    34,    36,    40,    42,    45,    51,    56,    59,    60,
-      63,    64,    66,    68,    70,    72,    74,    80,    83,    85,
-      89,    91,    93,    98,   102,   104,   105,   108,   112,   118,
-     126,   128,   130,   132,   134,   136,   138,   142,   144,   146,
-     148,   152,   154,   156,   158,   162,   164,   166,   168,   173,
-     175,   176,   180
+       0,     0,     3,     5,     8,    10,    12,    14,    16,    18,
+      20,    24,    31,    38,    40,    42,    46,    48,    51,    57,
+      62,    65,    66,    69,    70,    72,    74,    76,    78,    80,
+      86,    89,    91,    95,    97,    99,   104,   108,   110,   111,
+     114,   118,   124,   132,   134,   136,   138,   140,   142,   144,
+     148,   150,   152,   154,   158,   160,   162,   164,   168,   170,
+     172,   174,   179,   181,   182,   186
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-      32,     0,    -1,    33,    -1,    33,    34,    -1,    34,    -1,
-      35,    -1,    36,    -1,     5,     3,    21,    -1,     5,     3,
-      16,     4,    17,    21,    -1,     5,     3,    14,    37,    15,
-      40,    -1,    38,    -1,    22,    -1,    38,    13,    39,    -1,
-      39,    -1,     5,     3,    -1,     5,     3,    16,     4,    17,
-      -1,    18,    41,    42,    19,    -1,    41,    35,    -1,    -1,
-      42,    43,    -1,    -1,    45,    -1,    40,    -1,    50,    -1,
-      44,    -1,    49,    -1,    23,    14,    46,    15,    43,    -1,
-      46,    21,    -1,    21,    -1,    47,    20,    46,    -1,    48,
-      -1,     3,    -1,     3,    16,    46,    17,    -1,    52,    51,
-      52,    -1,    52,    -1,    -1,    24,    21,    -1,    24,    46,
-      21,    -1,    25,    14,    46,    15,    43,    -1,    25,    14,
-      46,    15,    43,    26,    43,    -1,    27,    -1,    11,    -1,
-      12,    -1,    28,    -1,    29,    -1,    30,    -1,    52,    53,
-      54,    -1,    54,    -1,     7,    -1,     8,    -1,    54,    55,
-      56,    -1,    56,    -1,     9,    -1,    10,    -1,    14,    46,
-      15,    -1,    47,    -1,    57,    -1,     4,    -1,     3,    14,
-      58,    15,    -1,    59,    -1,    -1,    59,    13,    46,    -1,
-      46,    -1
+      34,     0,    -1,    35,    -1,    35,    36,    -1,    36,    -1,
+      39,    -1,    40,    -1,    28,    -1,    27,    -1,     5,    -1,
+      37,    38,    22,    -1,    37,     5,    17,     6,    18,    22,
+      -1,    37,    38,    15,    41,    16,    44,    -1,    42,    -1,
+      27,    -1,    42,    14,    43,    -1,    43,    -1,    37,    38,
+      -1,    37,     5,    17,     6,    18,    -1,    19,    45,    46,
+      20,    -1,    45,    39,    -1,    -1,    46,    47,    -1,    -1,
+      49,    -1,    44,    -1,    54,    -1,    48,    -1,    53,    -1,
+      26,    15,    50,    16,    47,    -1,    50,    22,    -1,    22,
+      -1,    51,    21,    50,    -1,    52,    -1,    38,    -1,    38,
+      17,    50,    18,    -1,    56,    55,    56,    -1,    56,    -1,
+      -1,    25,    22,    -1,    25,    50,    22,    -1,    23,    15,
+      50,    16,    47,    -1,    23,    15,    50,    16,    47,    24,
+      47,    -1,    30,    -1,    12,    -1,    13,    -1,    29,    -1,
+      31,    -1,    32,    -1,    56,    57,    58,    -1,    58,    -1,
+       8,    -1,     9,    -1,    58,    59,    60,    -1,    60,    -1,
+      10,    -1,    11,    -1,    15,    50,    16,    -1,    51,    -1,
+      61,    -1,     6,    -1,    38,    15,    62,    16,    -1,    63,
+      -1,    -1,    63,    14,    50,    -1,    50,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    85,    85,    94,   103,   112,   120,   129,   150,   185,
-     214,   222,   234,   246,   255,   272,   302,   322,   330,   338,
-     346,   354,   360,   366,   372,   378,   386,   410,   423,   435,
-     449,   459,   469,   490,   492,   501,   509,   523,   540,   561,
-     589,   594,   599,   604,   609,   614,   621,   630,   639,   644,
-     651,   660,   669,   674,   681,   696,   703,   710,   719,   740,
-     747,   754,   766
+       0,    99,    99,   108,   117,   126,   134,   143,   154,   167,
+     175,   189,   218,   241,   249,   261,   273,   282,   292,   316,
+     336,   344,   352,   360,   368,   374,   381,   388,   395,   404,
+     429,   443,   456,   471,   482,   490,   509,   519,   529,   538,
+     553,   571,   593,   621,   626,   631,   636,   641,   646,   653,
+     662,   671,   676,   683,   692,   701,   706,   713,   728,   735,
+     742,   754,   772,   779,   786,   798
 };
 #endif
 
@@ -501,18 +524,19 @@ static const yytype_uint16 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "ID", "NUM", "TYPE", "SIMBOLO", "MAIS",
-  "MENOS", "VEZES", "DIVISAO", "MENOR", "MAIOR", "VIRGULA",
+  "$end", "error", "$undefined", "SEX", "SENAOX", "ID", "NUM", "SIMBOLO",
+  "MAIS", "MENOS", "VEZES", "DIVISAO", "MENOR", "MAIOR", "VIRGULA",
   "ABREPARENTESIS", "FECHAPARENTESIS", "ABRECOLCHETES", "FECHACOLCHETES",
-  "ABRECHAVES", "FECHACHAVES", "IGUAL", "PV", "'void'", "'while'",
-  "'return'", "'if'", "'else'", "'<='", "'>='", "'=='", "'!='", "$accept",
-  "programa", "listadeclaracoes", "declaracao", "declaracaovariaveis",
-  "declaracaofuncoes", "parametros", "listaparametros", "param",
-  "declaracaocomposta", "declaracoeslocais", "listacomandos", "comando",
-  "declaracaoiteracao", "declaracaoexpressao", "expressao", "variavel",
-  "expressaosimples", "declaracaoretorno", "declaracaoselecao",
-  "oprelacional", "somaexpressao", "soma", "termo", "mult", "fator",
-  "ativacao", "argumentos", "listaargumentos", 0
+  "ABRECHAVES", "FECHACHAVES", "IGUAL", "PV", "SE", "SENAO", "RETORNO",
+  "ENQUANTO", "VAZIO", "INTEIRO", "MAIORIGUAL", "MENORIGUAL", "IGUALIGUAL",
+  "DIFERENTE", "$accept", "programa", "listadeclaracoes", "declaracao",
+  "tipo", "identificador", "declaracaovariaveis", "declaracaofuncoes",
+  "parametros", "listaparametros", "param", "declaracaocomposta",
+  "declaracoeslocais", "listacomandos", "comando", "declaracaoiteracao",
+  "declaracaoexpressao", "expressao", "variavel", "expressaosimples",
+  "declaracaoretorno", "declaracaoselecao", "oprelacional",
+  "somaexpressao", "soma", "termo", "mult", "fator", "ativacao",
+  "argumentos", "listaargumentos", 0
 };
 #endif
 
@@ -523,33 +547,33 @@ static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   118,   119,   114,   105,   101,    60,    62,    61,
-      33
+     275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
+     285,   286,   287
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    31,    32,    33,    33,    34,    34,    35,    35,    36,
-      37,    37,    38,    38,    39,    39,    40,    41,    41,    42,
-      42,    43,    43,    43,    43,    43,    44,    45,    45,    46,
-      46,    47,    47,    48,    48,    40,    49,    49,    50,    50,
-      51,    51,    51,    51,    51,    51,    52,    52,    53,    53,
-      54,    54,    55,    55,    56,    56,    56,    56,    57,    58,
-      58,    59,    59
+       0,    33,    34,    35,    35,    36,    36,    37,    37,    38,
+      39,    39,    40,    41,    41,    42,    42,    43,    43,    44,
+      45,    45,    46,    46,    47,    47,    47,    47,    47,    48,
+      49,    49,    50,    50,    51,    51,    52,    52,    44,    53,
+      53,    54,    54,    55,    55,    55,    55,    55,    55,    56,
+      56,    57,    57,    58,    58,    59,    59,    60,    60,    60,
+      60,    61,    62,    62,    63,    63
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1,     2,     1,     1,     1,     3,     6,     6,
-       1,     1,     3,     1,     2,     5,     4,     2,     0,     2,
-       0,     1,     1,     1,     1,     1,     5,     2,     1,     3,
-       1,     1,     4,     3,     1,     0,     2,     3,     5,     7,
-       1,     1,     1,     1,     1,     1,     3,     1,     1,     1,
-       3,     1,     1,     1,     3,     1,     1,     1,     4,     1,
-       0,     3,     1
+       0,     2,     1,     2,     1,     1,     1,     1,     1,     1,
+       3,     6,     6,     1,     1,     3,     1,     2,     5,     4,
+       2,     0,     2,     0,     1,     1,     1,     1,     1,     5,
+       2,     1,     3,     1,     1,     4,     3,     1,     0,     2,
+       3,     5,     7,     1,     1,     1,     1,     1,     1,     3,
+       1,     1,     1,     3,     1,     1,     1,     3,     1,     1,
+       1,     4,     1,     0,     3,     1
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -557,101 +581,105 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     2,     4,     5,     6,     0,     1,     3,
-       0,     0,     7,     0,    11,     0,    10,    13,     0,    14,
-      35,     0,     0,     0,    18,     9,    12,     8,     0,    20,
-      15,     0,    17,     0,     0,    31,    57,     0,    16,    28,
-       0,     0,     0,    22,    19,    24,    21,     0,    55,    30,
-      25,    23,    34,    47,    51,    56,    60,     0,     0,     0,
-      36,     0,     0,    27,     0,    48,    49,    41,    42,    40,
-      43,    44,    45,     0,     0,    52,    53,     0,    62,     0,
-      59,     0,    54,     0,    37,     0,    29,    55,    33,    46,
-      50,    58,     0,    32,    35,    35,    61,    26,    38,    35,
-      39
+       0,     8,     7,     0,     2,     4,     0,     5,     6,     1,
+       3,     9,     0,     0,     0,    10,     0,     8,     0,     0,
+      13,    16,     0,     9,    17,    38,     0,    11,     0,    21,
+      12,    15,     0,    23,    18,     0,    20,     0,     0,     9,
+      60,     0,    19,    31,     0,     0,     0,    34,    25,    22,
+      27,    24,     0,    58,    33,    28,    26,    37,    50,    54,
+      59,     0,     0,    39,     0,     0,    63,     0,    30,     0,
+      51,    52,    44,    45,    46,    43,    47,    48,     0,     0,
+      55,    56,     0,    57,     0,    40,     0,    65,     0,    62,
+       0,    32,    58,    36,    49,    53,    38,    38,    61,     0,
+      35,    41,    29,    64,    38,    42
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     3,     4,     5,     6,    15,    16,    17,    43,
-      29,    33,    44,    45,    46,    47,    48,    49,    50,    51,
-      73,    52,    74,    53,    77,    54,    55,    79,    80
+      -1,     3,     4,     5,     6,    47,     7,     8,    19,    20,
+      21,    48,    33,    37,    49,    50,    51,    52,    53,    54,
+      55,    56,    78,    57,    79,    58,    82,    59,    60,    88,
+      89
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -47
+#define YYPACT_NINF -57
 static const yytype_int8 yypact[] =
 {
-      -3,     8,    14,    -3,   -47,   -47,   -47,   -11,   -47,   -47,
-      -4,    17,   -47,    29,   -47,    27,    53,   -47,    50,    30,
-      51,    63,    49,    67,   -47,   -47,   -47,   -47,    55,    68,
-     -47,    71,   -47,    20,    19,    36,   -47,     3,   -47,   -47,
-      61,    12,    62,   -47,   -47,   -47,   -47,    56,    58,   -47,
-     -47,   -47,     1,    52,   -47,   -47,     3,     3,    64,     3,
-     -47,    59,     3,   -47,     3,   -47,   -47,   -47,   -47,   -47,
-     -47,   -47,   -47,     3,     3,   -47,   -47,     3,   -47,    66,
-      69,    70,   -47,    73,   -47,    74,   -47,   -47,    57,    52,
-     -47,   -47,     3,   -47,    33,    33,   -47,   -47,    60,    33,
-     -47
+      34,   -57,   -57,     6,    34,   -57,    24,   -57,   -57,   -57,
+     -57,    25,    28,    38,    37,   -57,    33,    41,    65,    55,
+      58,   -57,    51,    57,   -57,    59,    34,   -57,    69,   -57,
+     -57,   -57,    61,    34,   -57,    24,   -57,    -3,    54,   -57,
+     -57,     3,   -57,   -57,    62,    32,    66,   -10,   -57,   -57,
+     -57,   -57,    63,    67,   -57,   -57,   -57,     2,    56,   -57,
+     -57,    64,     3,   -57,    68,     3,     3,     3,   -57,     3,
+     -57,   -57,   -57,   -57,   -57,   -57,   -57,   -57,     3,     3,
+     -57,   -57,     3,   -57,    70,   -57,    71,   -57,    73,    77,
+      74,   -57,   -57,    60,    56,   -57,    30,    30,   -57,     3,
+     -57,    72,   -57,   -57,    30,   -57
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -47,   -47,   -47,    80,    65,   -47,   -47,   -47,    72,    75,
-     -47,   -47,   -46,   -47,   -47,   -37,   -14,   -47,   -47,   -47,
-     -47,    11,   -47,    16,   -47,    15,   -47,   -47,   -47
+     -57,   -57,   -57,    78,    13,    -5,    50,   -57,   -57,   -57,
+      75,    79,   -57,   -57,   -56,   -57,   -57,   -41,   -19,   -57,
+     -57,   -57,   -57,    15,   -57,     5,   -57,    12,   -57,   -57,
+     -57
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
    positive, shift that token.  If negative, reduce the rule which
    number is the opposite.  If zero, do what YYDEFACT says.
    If YYTABLE_NINF, syntax error.  */
-#define YYTABLE_NINF -1
-static const yytype_uint8 yytable[] =
+#define YYTABLE_NINF -15
+static const yytype_int8 yytable[] =
 {
-      58,    13,     1,    10,    61,    11,    35,    36,    65,    66,
-      12,     7,    67,    68,     8,    35,    36,    37,    14,    78,
-      81,    18,    83,    35,    36,    85,    37,    86,    69,    70,
-      71,    72,    19,    60,    37,    11,    35,    36,    24,    38,
-      12,    39,    20,    40,    41,    42,    23,    37,    97,    98,
-      56,    24,    57,   100,    39,    96,    40,    41,    42,    87,
-      87,    75,    76,    87,    65,    66,    21,    22,    13,    24,
-      27,    28,    30,    31,    34,    59,    62,    63,    64,    82,
-      84,    91,    92,     9,    88,     0,    99,    93,    94,    95,
-      89,     0,    90,    26,    32,    25
+      61,    12,    39,    40,    64,    66,     9,    67,    39,    40,
+      70,    71,    41,    24,    72,    73,    29,    42,    41,    43,
+      44,    84,    45,    46,    86,    87,    90,    18,    91,    11,
+      38,    74,    75,    76,    77,    39,    40,    39,    40,    18,
+     101,   102,    13,    14,    16,    41,    35,    41,   105,    29,
+      15,    22,    43,    44,    63,    45,    46,   -14,   103,    92,
+      92,     1,     2,    92,    17,     2,    80,    81,    70,    71,
+      23,    25,    26,    27,    28,    32,    15,    62,    29,    34,
+      83,    65,    10,    36,    94,    68,    96,    97,    69,    98,
+      85,    99,   100,    93,    95,     0,   104,     0,     0,     0,
+       0,    31,     0,     0,    30
 };
 
 static const yytype_int8 yycheck[] =
 {
-      37,     5,     5,    14,    41,    16,     3,     4,     7,     8,
-      21,     3,    11,    12,     0,     3,     4,    14,    22,    56,
-      57,     4,    59,     3,     4,    62,    14,    64,    27,    28,
-      29,    30,     3,    21,    14,    16,     3,     4,    18,    19,
-      21,    21,    15,    23,    24,    25,    16,    14,    94,    95,
-      14,    18,    16,    99,    21,    92,    23,    24,    25,    73,
-      74,     9,    10,    77,     7,     8,    13,    17,     5,    18,
-      21,     4,    17,     5,     3,    14,    14,    21,    20,    15,
-      21,    15,    13,     3,    73,    -1,    26,    17,    15,    15,
-      74,    -1,    77,    21,    29,    20
+      41,     6,     5,     6,    45,    15,     0,    17,     5,     6,
+       8,     9,    15,    18,    12,    13,    19,    20,    15,    22,
+      23,    62,    25,    26,    65,    66,    67,    14,    69,     5,
+      35,    29,    30,    31,    32,     5,     6,     5,     6,    26,
+      96,    97,    17,    15,     6,    15,    33,    15,   104,    19,
+      22,    18,    22,    23,    22,    25,    26,    16,    99,    78,
+      79,    27,    28,    82,    27,    28,    10,    11,     8,     9,
+       5,    16,    14,    22,    17,     6,    22,    15,    19,    18,
+      16,    15,     4,    33,    79,    22,    16,    16,    21,    16,
+      22,    14,    18,    78,    82,    -1,    24,    -1,    -1,    -1,
+      -1,    26,    -1,    -1,    25
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     5,    32,    33,    34,    35,    36,     3,     0,    34,
-      14,    16,    21,     5,    22,    37,    38,    39,     4,     3,
-      15,    13,    17,    16,    18,    40,    39,    21,     4,    41,
-      17,     5,    35,    42,     3,     3,     4,    14,    19,    21,
-      23,    24,    25,    40,    43,    44,    45,    46,    47,    48,
-      49,    50,    52,    54,    56,    57,    14,    16,    46,    14,
-      21,    46,    14,    21,    20,     7,     8,    11,    12,    27,
-      28,    29,    30,    51,    53,     9,    10,    55,    46,    58,
-      59,    46,    15,    46,    21,    46,    46,    47,    52,    54,
-      56,    15,    13,    17,    15,    15,    46,    43,    43,    26,
-      43
+       0,    27,    28,    34,    35,    36,    37,    39,    40,     0,
+      36,     5,    38,    17,    15,    22,     6,    27,    37,    41,
+      42,    43,    18,     5,    38,    16,    14,    22,    17,    19,
+      44,    43,     6,    45,    18,    37,    39,    46,    38,     5,
+       6,    15,    20,    22,    23,    25,    26,    38,    44,    47,
+      48,    49,    50,    51,    52,    53,    54,    56,    58,    60,
+      61,    50,    15,    22,    50,    15,    15,    17,    22,    21,
+       8,     9,    12,    13,    29,    30,    31,    32,    55,    57,
+      10,    11,    59,    16,    50,    22,    50,    50,    62,    63,
+      50,    50,    51,    56,    58,    60,    16,    16,    16,    14,
+      18,    47,    47,    50,    24,    47
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1466,7 +1494,7 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 85 "sintatic.y"
+#line 99 "sintatic.y"
     { 	
 								no * aux = (no*) malloc(sizeof(no));
 								aux->nome = strdup("programa");
@@ -1478,7 +1506,7 @@ yyreduce:
     break;
 
   case 3:
-#line 94 "sintatic.y"
+#line 108 "sintatic.y"
     {
 								no * aux = (no*) malloc(sizeof(no));
 								aux->nome = strdup("listadeclaracoes");
@@ -1491,7 +1519,7 @@ yyreduce:
     break;
 
   case 4:
-#line 103 "sintatic.y"
+#line 117 "sintatic.y"
     { 
 					   				no * aux = (no*) malloc(sizeof(no));
 									aux->nome = strdup("listadeclaracoes");
@@ -1503,7 +1531,7 @@ yyreduce:
     break;
 
   case 5:
-#line 112 "sintatic.y"
+#line 126 "sintatic.y"
     {  
 									no * aux = (no*) malloc(sizeof(no));
 									aux->nome = strdup("declaracao");
@@ -1515,7 +1543,7 @@ yyreduce:
     break;
 
   case 6:
-#line 120 "sintatic.y"
+#line 134 "sintatic.y"
     { 
 									no * aux = (no*) malloc(sizeof(no));
 									aux->nome = strdup("declaracao");
@@ -1527,44 +1555,74 @@ yyreduce:
     break;
 
   case 7:
-#line 129 "sintatic.y"
+#line 143 "sintatic.y"
+    {
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("tipo");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+
+	no * f1 = (no*) malloc(sizeof(no));
+	f1->nome = strdup(yytext);
+	f1->qtd = 0;
+	aux->filhos[0] = *f1;
+	aux->qtd = 1;
+	(yyval.no_t) = aux;
+}
+    break;
+
+  case 8:
+#line 154 "sintatic.y"
+    {
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("tipo");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+
+	no * f1 = (no*) malloc(sizeof(no));
+	f1->nome = strdup(yytext);
+	f1->qtd = 0;
+	aux->filhos[0] = *f1;
+	aux->qtd = 1;
+	(yyval.no_t) = aux;
+}
+    break;
+
+  case 9:
+#line 167 "sintatic.y"
+    {
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("ID");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+	aux->qtd = 0;
+	(yyval.no_t) = aux;
+}
+    break;
+
+  case 10:
+#line 175 "sintatic.y"
     {
 									no * aux = (no*) malloc(sizeof(no));
 									aux->nome = strdup("declaracaoVariaveis");
 									aux->filhos = (no*)malloc(sizeof(no) * 100);
-
-									no * f1 = (no*) malloc(sizeof(no));
-									f1->nome = strdup((yyvsp[(1) - (3)].str_t));
-									f1->qtd = 0;
-									no * f2 = (no*) malloc(sizeof(no));
-									f2->nome = strdup((yyvsp[(2) - (3)].str_t));
-									f2->qtd = 0;
 									no * f3 = (no*) malloc(sizeof(no));
-									f3->nome = strdup((yyvsp[(3) - (3)].str_t));
+									f3->nome = strdup(";");
 									f3->qtd = 0;
 
-									aux->filhos[0] = *f1;
-									aux->filhos[1] = *f2;
+									aux->filhos[0] = *((no*)(yyvsp[(1) - (3)].no_t));
+									aux->filhos[1] = *((no*)(yyvsp[(2) - (3)].no_t));
 									aux->filhos[2] = *f3;
 									aux->qtd = 3;
 									(yyval.no_t) = aux;
 								 }
     break;
 
-  case 8:
-#line 150 "sintatic.y"
+  case 11:
+#line 189 "sintatic.y"
     { 
 				    				no * aux = (no*) malloc(sizeof(no));
 				    				no * tipo = (no*) malloc(sizeof(no));
 									aux->nome = strdup("listadeclaracoes");
 									aux->filhos = (no*)malloc(sizeof(no) * 100);
 
-									no * f1 = (no*) malloc(sizeof(no));
-									f1->nome = strdup("TIPO");
-									f1->qtd = 0;
-									no * f2 = (no*) malloc(sizeof(no));
-									f2->nome = strdup("ID");
-									f2->qtd = 0;
 									no * f3 = (no*) malloc(sizeof(no));
 									f3->nome = strdup("[");
 									f3->qtd = 0;
@@ -1578,8 +1636,8 @@ yyreduce:
 									f6->nome = strdup(";");
 									f6->qtd = 0;
 
-									aux->filhos[0] = *f1;
-									aux->filhos[1] = *f2;
+									aux->filhos[0] = *((no*)(yyvsp[(1) - (6)].no_t));
+									aux->filhos[1] = *((no*)(yyvsp[(1) - (6)].no_t));
 									aux->filhos[2] = *f3;
 									aux->filhos[3] = *f4;
 									aux->filhos[4] = *f5;
@@ -1589,19 +1647,13 @@ yyreduce:
 				    			}
     break;
 
-  case 9:
-#line 185 "sintatic.y"
+  case 12:
+#line 218 "sintatic.y"
     { 
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaofuncoes");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
 	
-	no * f1 = (no*) malloc(sizeof(no));
-	f1->nome = strdup("TIPO");
-	f1->qtd = 0;
-	no * f2 = (no*) malloc(sizeof(no));
-	f2->nome = strdup("ID");
-	f2->qtd = 0;
 	no * f3 = (no*) malloc(sizeof(no));
 	f3->nome = strdup("(");
 	f3->qtd = 0;
@@ -1609,8 +1661,8 @@ yyreduce:
 	f5->nome = strdup(")");
 	f5->qtd = 0;
 
-	aux->filhos[0] = *f1;
-	aux->filhos[1] = *f2;
+	aux->filhos[0] = *((no*)(yyvsp[(1) - (6)].no_t));
+	aux->filhos[1] = *((no*)(yyvsp[(2) - (6)].no_t));
 	aux->filhos[2] = *f3;
 	aux->filhos[3] = *((no*)(yyvsp[(4) - (6)].no_t));
 	aux->filhos[4] = *f5;
@@ -1621,8 +1673,8 @@ yyreduce:
 }
     break;
 
-  case 10:
-#line 214 "sintatic.y"
+  case 13:
+#line 241 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("parametros");
@@ -1633,8 +1685,8 @@ yyreduce:
 }
     break;
 
-  case 11:
-#line 222 "sintatic.y"
+  case 14:
+#line 249 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("parametros");
@@ -1648,8 +1700,8 @@ yyreduce:
 }
     break;
 
-  case 12:
-#line 234 "sintatic.y"
+  case 15:
+#line 261 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("listaparametros");
@@ -1665,8 +1717,8 @@ yyreduce:
 }
     break;
 
-  case 13:
-#line 246 "sintatic.y"
+  case 16:
+#line 273 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("listaparametros");
@@ -1677,40 +1729,27 @@ yyreduce:
 }
     break;
 
-  case 14:
-#line 255 "sintatic.y"
+  case 17:
+#line 282 "sintatic.y"
     { 
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("param");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
 
-	no * f1 = (no*) malloc(sizeof(no));
-	f1->nome = strdup("TIPO");
-	f1->qtd = 0;
-	no * f2 = (no*) malloc(sizeof(no));
-	f2->nome = strdup("ID");
-	f2->qtd = 0;
-
-	aux->filhos[0] = *f1;
-	aux->filhos[1] = *f2;
+	aux->filhos[0] = *((no*)(yyvsp[(1) - (2)].no_t));;
+	aux->filhos[1] = *((no*)(yyvsp[(2) - (2)].no_t));
 	aux->qtd = 2;
 	(yyval.no_t) = aux;
 }
     break;
 
-  case 15:
-#line 272 "sintatic.y"
+  case 18:
+#line 292 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("param");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
 
-	no * f1 = (no*) malloc(sizeof(no));
-	f1->nome = strdup("TIPO");
-	f1->qtd = 0;
-	no * f2 = (no*) malloc(sizeof(no));
-	f2->nome = strdup("ID");
-	f2->qtd = 0;
 	no * f3 = (no*) malloc(sizeof(no));
 	f3->nome = strdup("[");
 	f3->qtd = 0;
@@ -1721,8 +1760,8 @@ yyreduce:
 	f5->nome = strdup("]");
 	f5->qtd = 0;
 
-	aux->filhos[0] = *f1;
-	aux->filhos[1] = *f2;
+	aux->filhos[0] = *((no*)(yyvsp[(1) - (5)].no_t));
+	aux->filhos[1] = *((no*)(yyvsp[(2) - (5)].str_t));
 	aux->filhos[2] = *f3;
 	aux->filhos[3] = *f4;
 	aux->filhos[4] = *f5;
@@ -1731,8 +1770,8 @@ yyreduce:
 }
     break;
 
-  case 16:
-#line 302 "sintatic.y"
+  case 19:
+#line 316 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaocomposta");
@@ -1754,89 +1793,56 @@ yyreduce:
 }
     break;
 
-  case 17:
-#line 322 "sintatic.y"
-    { 
-	no * aux = (no*) malloc(sizeof(no));
-	aux->nome = strdup("declaracoeslocais");
-	aux->filhos = (no*)malloc(sizeof(no) * 100);
-
-	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (2)].no_t));
-	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(2) - (2)].no_t));
-	(yyval.no_t) = aux;
-}
-    break;
-
-  case 18:
-#line 330 "sintatic.y"
-    {
-	no * aux = (no*) malloc(sizeof(no));
-	aux->nome = strdup("declaracoeslocais");
-	aux->filhos = (no*)malloc(sizeof(no) * 100);
-	aux->qtd = 0;
-	(yyval.no_t) = aux;
-}
-    break;
-
-  case 19:
-#line 338 "sintatic.y"
-    { 
-	no * aux = (no*) malloc(sizeof(no));
-	aux->nome = strdup("listacomandos");
-	aux->filhos = (no*)malloc(sizeof(no) * 100);
-
-	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (2)].no_t));
-	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(2) - (2)].no_t));
-	(yyval.no_t) = aux;
-}
-    break;
-
   case 20:
-#line 346 "sintatic.y"
+#line 336 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
-	aux->nome = strdup("listacomandos");
+	aux->nome = strdup("declaracoeslocais");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
-	aux->qtd = 0;
+
+	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (2)].no_t));
+	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(2) - (2)].no_t));
 	(yyval.no_t) = aux;
 }
     break;
 
   case 21:
-#line 354 "sintatic.y"
+#line 344 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
-	aux->nome = strdup("comando");
+	aux->nome = strdup("declaracoeslocais");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
-	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (1)].no_t));
+	aux->qtd = 0;
 	(yyval.no_t) = aux;
 }
     break;
 
   case 22:
-#line 360 "sintatic.y"
-    {
+#line 352 "sintatic.y"
+    { 
 	no * aux = (no*) malloc(sizeof(no));
-	aux->nome = strdup("comando");
+	aux->nome = strdup("listacomandos");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
-	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (1)].no_t));
+
+	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (2)].no_t));
+	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(2) - (2)].no_t));
 	(yyval.no_t) = aux;
 }
     break;
 
   case 23:
-#line 366 "sintatic.y"
+#line 360 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
-	aux->nome = strdup("comando");
+	aux->nome = strdup("listacomandos");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
-	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (1)].no_t));
+	aux->qtd = 0;
 	(yyval.no_t) = aux;
 }
     break;
 
   case 24:
-#line 372 "sintatic.y"
+#line 368 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("comando");
@@ -1847,8 +1853,9 @@ yyreduce:
     break;
 
   case 25:
-#line 378 "sintatic.y"
+#line 374 "sintatic.y"
     {
+	printf("Comando\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("comando");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -1858,8 +1865,45 @@ yyreduce:
     break;
 
   case 26:
-#line 386 "sintatic.y"
+#line 381 "sintatic.y"
     {
+	printf("Comando\n");
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("comando");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (1)].no_t));
+	(yyval.no_t) = aux;
+}
+    break;
+
+  case 27:
+#line 388 "sintatic.y"
+    {
+	printf("Comando\n");
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("comando");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (1)].no_t));
+	(yyval.no_t) = aux;
+}
+    break;
+
+  case 28:
+#line 395 "sintatic.y"
+    {
+	printf("Comando\n");
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("comando");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (1)].no_t));
+	(yyval.no_t) = aux;
+}
+    break;
+
+  case 29:
+#line 404 "sintatic.y"
+    {
+	printf("DeclaracaoIteracao\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaocomposta");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -1884,9 +1928,10 @@ yyreduce:
 }
     break;
 
-  case 27:
-#line 410 "sintatic.y"
+  case 30:
+#line 429 "sintatic.y"
     {
+	printf("DeclaracaoExpressao\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaoexpressao");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -1902,9 +1947,10 @@ yyreduce:
 }
     break;
 
-  case 28:
-#line 423 "sintatic.y"
+  case 31:
+#line 443 "sintatic.y"
     {
+	printf("DeclaracaoExpressao\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaoexpressao");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -1917,9 +1963,10 @@ yyreduce:
 }
     break;
 
-  case 29:
-#line 435 "sintatic.y"
+  case 32:
+#line 456 "sintatic.y"
     {
+	printf("Expressao\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("expressao");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -1936,9 +1983,10 @@ yyreduce:
 }
     break;
 
-  case 30:
-#line 449 "sintatic.y"
+  case 33:
+#line 471 "sintatic.y"
     {
+	printf("Expressao\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("expressao");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -1949,37 +1997,33 @@ yyreduce:
 }
     break;
 
-  case 31:
-#line 459 "sintatic.y"
+  case 34:
+#line 482 "sintatic.y"
     {
+	printf("Variavel\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("variavel");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
-		no * f1 = (no*) malloc(sizeof(no));
-		f1->nome = strdup(yytext);
-		f1->qtd = 0;
-		aux->filhos[0] = *f1;
+	aux->filhos[0] = *((no*)(yyvsp[(1) - (1)].no_t));;
 	aux->qtd = 0;
 	(yyval.no_t) = aux;
 }
     break;
 
-  case 32:
-#line 469 "sintatic.y"
+  case 35:
+#line 490 "sintatic.y"
     {
+	printf("Variavel\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("variavel");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
-		no * f1 = (no*) malloc(sizeof(no));
-		f1->nome = strdup("ID");
-		f1->qtd = 0;
 		no * f2 = (no*) malloc(sizeof(no));
 		f2->nome = strdup("[");
 		f2->qtd = 0;
 		no * f4 = (no*) malloc(sizeof(no));
 		f4->nome = strdup("]");
 		f4->qtd = 0;
-		aux->filhos[0] = *f1;
+		aux->filhos[0] = *((no*)(yyvsp[(1) - (4)].no_t));
 		aux->filhos[1] = *f2;
 		aux->filhos[2] = *((no*)(yyvsp[(3) - (4)].no_t));
 		aux->filhos[3] = *f4;
@@ -1988,16 +2032,25 @@ yyreduce:
 }
     break;
 
-  case 33:
-#line 490 "sintatic.y"
+  case 36:
+#line 509 "sintatic.y"
     {
-	
+	printf("ExpressaoSimples\n");
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("expressaosimples");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+	aux->qtd = 3;
+	aux->filhos[0] = *((no*)(yyvsp[(1) - (3)].no_t));
+	aux->filhos[1] = *((no*)(yyvsp[(2) - (3)].no_t));
+	aux->filhos[2] = *((no*)(yyvsp[(3) - (3)].no_t));
+	(yyval.no_t) = aux;
 }
     break;
 
-  case 34:
-#line 492 "sintatic.y"
+  case 37:
+#line 519 "sintatic.y"
     {
+	printf("ExpressaoSimples\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("expressaosimples");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -2007,9 +2060,10 @@ yyreduce:
 }
     break;
 
-  case 35:
-#line 501 "sintatic.y"
+  case 38:
+#line 529 "sintatic.y"
     {
+	printf("DeclaracaoComposta\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaocomposta");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -2018,9 +2072,10 @@ yyreduce:
 }
     break;
 
-  case 36:
-#line 509 "sintatic.y"
+  case 39:
+#line 538 "sintatic.y"
     {
+	printf("DeclaracaoRetorno\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaoretorno");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -2037,9 +2092,10 @@ yyreduce:
 }
     break;
 
-  case 37:
-#line 523 "sintatic.y"
+  case 40:
+#line 553 "sintatic.y"
     {
+	printf("DeclaracaoRetorno\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaoretorno");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -2057,9 +2113,10 @@ yyreduce:
 }
     break;
 
-  case 38:
-#line 540 "sintatic.y"
+  case 41:
+#line 571 "sintatic.y"
     {
+	printf("DeclaracaoSelecao\n");
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaoselecao");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
@@ -2083,8 +2140,8 @@ yyreduce:
 }
     break;
 
-  case 39:
-#line 561 "sintatic.y"
+  case 42:
+#line 593 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("declaracaoselecao");
@@ -2114,8 +2171,8 @@ yyreduce:
 }
     break;
 
-  case 40:
-#line 589 "sintatic.y"
+  case 43:
+#line 621 "sintatic.y"
     { 
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("<=");
@@ -2124,8 +2181,8 @@ yyreduce:
 }
     break;
 
-  case 41:
-#line 594 "sintatic.y"
+  case 44:
+#line 626 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("<");
@@ -2134,8 +2191,8 @@ yyreduce:
 }
     break;
 
-  case 42:
-#line 599 "sintatic.y"
+  case 45:
+#line 631 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup(">");
@@ -2144,8 +2201,8 @@ yyreduce:
 }
     break;
 
-  case 43:
-#line 604 "sintatic.y"
+  case 46:
+#line 636 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup(">=");
@@ -2154,8 +2211,8 @@ yyreduce:
 }
     break;
 
-  case 44:
-#line 609 "sintatic.y"
+  case 47:
+#line 641 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("==");
@@ -2164,8 +2221,8 @@ yyreduce:
 }
     break;
 
-  case 45:
-#line 614 "sintatic.y"
+  case 48:
+#line 646 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("!=");
@@ -2174,8 +2231,8 @@ yyreduce:
 }
     break;
 
-  case 46:
-#line 621 "sintatic.y"
+  case 49:
+#line 653 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("somaexpressao");
@@ -2188,8 +2245,8 @@ yyreduce:
 }
     break;
 
-  case 47:
-#line 630 "sintatic.y"
+  case 50:
+#line 662 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("somaexpressao");
@@ -2200,8 +2257,8 @@ yyreduce:
 }
     break;
 
-  case 48:
-#line 639 "sintatic.y"
+  case 51:
+#line 671 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("+");
@@ -2210,8 +2267,8 @@ yyreduce:
 }
     break;
 
-  case 49:
-#line 644 "sintatic.y"
+  case 52:
+#line 676 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("-");
@@ -2220,8 +2277,8 @@ yyreduce:
 }
     break;
 
-  case 50:
-#line 651 "sintatic.y"
+  case 53:
+#line 683 "sintatic.y"
     { 
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("termo");
@@ -2234,8 +2291,8 @@ yyreduce:
 }
     break;
 
-  case 51:
-#line 660 "sintatic.y"
+  case 54:
+#line 692 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("termo");
@@ -2246,8 +2303,8 @@ yyreduce:
 }
     break;
 
-  case 52:
-#line 669 "sintatic.y"
+  case 55:
+#line 701 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("*");
@@ -2256,8 +2313,8 @@ yyreduce:
 }
     break;
 
-  case 53:
-#line 674 "sintatic.y"
+  case 56:
+#line 706 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("/");
@@ -2266,8 +2323,8 @@ yyreduce:
 }
     break;
 
-  case 54:
-#line 681 "sintatic.y"
+  case 57:
+#line 713 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("fator");
@@ -2286,72 +2343,23 @@ yyreduce:
 }
     break;
 
-  case 55:
-#line 696 "sintatic.y"
-    {
-	no * aux = (no*) malloc(sizeof(no));
-	aux->nome = strdup("fator");
-	aux->filhos = (no*)malloc(sizeof(no) * 100);
-	aux->qtd = 0;
-	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (1)].no_t));
-	(yyval.no_t) = aux;
-}
-    break;
-
-  case 56:
-#line 703 "sintatic.y"
-    {
-	no * aux = (no*) malloc(sizeof(no));
-	aux->nome = strdup("fator");
-	aux->filhos = (no*)malloc(sizeof(no) * 100);
-	aux->qtd = 0;
-	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (1)].no_t));
-	(yyval.no_t) = aux;
-}
-    break;
-
-  case 57:
-#line 710 "sintatic.y"
-    {
-	no * aux = (no*) malloc(sizeof(no));
-	aux->nome = strdup("fator");
-	aux->filhos = (no*)malloc(sizeof(no) * 100);
-	aux->qtd = 0;
-	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (1)].str_t));
-	(yyval.no_t) = aux;
-}
-    break;
-
   case 58:
-#line 719 "sintatic.y"
+#line 728 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
-	aux->nome = strdup("ativacao");
+	aux->nome = strdup("fator");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
 	aux->qtd = 0;
-	no * f1 = (no*) malloc(sizeof(no));
-	f1->nome = strdup("ID");
-	f1->qtd = 0;
-	no * f2 = (no*) malloc(sizeof(no));
-	f2->nome = strdup("(");
-	f2->qtd = 0;
-	no * f3 = (no*) malloc(sizeof(no));
-	f3->nome = strdup(")");
-	f3->qtd = 0;
-	aux->filhos[aux->qtd++] = *f1;
-	aux->filhos[aux->qtd++] = *f2;
-	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(3) - (4)].no_t));
-	aux->filhos[aux->qtd++] = *f3;
-
+	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (1)].no_t));
 	(yyval.no_t) = aux;
 }
     break;
 
   case 59:
-#line 740 "sintatic.y"
+#line 735 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
-	aux->nome = strdup("argumentos");
+	aux->nome = strdup("fator");
 	aux->filhos = (no*)malloc(sizeof(no) * 100);
 	aux->qtd = 0;
 	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (1)].no_t));
@@ -2360,7 +2368,56 @@ yyreduce:
     break;
 
   case 60:
-#line 747 "sintatic.y"
+#line 742 "sintatic.y"
+    {
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("fator");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+	aux->qtd = 0;
+	no * f4 = (no*) malloc(sizeof(no));
+	f4->nome = strdup(yytext);
+	f4->qtd = 0;
+	aux->filhos[aux->qtd++] = *f4;
+	(yyval.no_t) = aux;
+}
+    break;
+
+  case 61:
+#line 754 "sintatic.y"
+    {
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("ativacao");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+	aux->qtd = 0;
+	no * f2 = (no*) malloc(sizeof(no));
+	f2->nome = strdup("(");
+	f2->qtd = 0;
+	no * f3 = (no*) malloc(sizeof(no));
+	f3->nome = strdup(")");
+	f3->qtd = 0;
+	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (4)].no_t));
+	aux->filhos[aux->qtd++] = *f2;
+	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(3) - (4)].no_t));
+	aux->filhos[aux->qtd++] = *f3;
+
+	(yyval.no_t) = aux;
+}
+    break;
+
+  case 62:
+#line 772 "sintatic.y"
+    {
+	no * aux = (no*) malloc(sizeof(no));
+	aux->nome = strdup("argumentos");
+	aux->filhos = (no*)malloc(sizeof(no) * 100);
+	aux->qtd = 0;
+	aux->filhos[aux->qtd++] = *((no*)(yyvsp[(1) - (1)].no_t));
+	(yyval.no_t) = aux;
+}
+    break;
+
+  case 63:
+#line 779 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("argumentos");
@@ -2369,8 +2426,8 @@ yyreduce:
 }
     break;
 
-  case 61:
-#line 754 "sintatic.y"
+  case 64:
+#line 786 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("listaargumentos");
@@ -2386,8 +2443,8 @@ yyreduce:
 }
     break;
 
-  case 62:
-#line 766 "sintatic.y"
+  case 65:
+#line 798 "sintatic.y"
     {
 	no * aux = (no*) malloc(sizeof(no));
 	aux->nome = strdup("listaargumentos");
@@ -2400,7 +2457,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2404 "sintatic.c"
+#line 2461 "sintatic.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2614,7 +2671,7 @@ yyreturn:
 }
 
 
-#line 775 "sintatic.y"
+#line 807 "sintatic.y"
 
 
 int main(void) {

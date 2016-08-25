@@ -1,1 +1,5 @@
-int a;
+int global;
+
+int teste ( int a ){
+	int c;
+}
