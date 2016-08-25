@@ -23,6 +23,7 @@ digito [0-9]
 letras {letra}{letra}*
 num {digito}{digito}*
 branco [ \n\t\r]+
+%option yylineno
 
 %%
 {abrecomentario} 	{ ligado = 1; }
@@ -62,5 +63,5 @@ branco [ \n\t\r]+
 {letras} 			{ if ( ligado == 0 ) { yylval.str_t = yytext; return(ID); } }
 {num} 				{ if ( ligado == 0 ) return(NUM); }
 {branco} 			{}
-. 					{ if ( ligado == 0 ) printf("Entrada inválida: %s\n",yytext); }
+. 					{ if ( ligado == 0 ) printf("Linha %d - Erro léxico: %s\n",yylineno,yytext); }
 %%

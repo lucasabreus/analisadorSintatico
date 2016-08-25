@@ -7,4 +7,4 @@ all:
 
 	gcc -o bin sintatic.c -ll -ly 
 
-	./bin < entradas/mdc.comp
+	./bin < entradas/todosSimbolos

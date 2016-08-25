@@ -7,7 +7,7 @@
 #include <string.h>
 
 void yyerror(char *s) {
-    fprintf(stderr, "line %d: %s\n", yylineno, s);
+	printf("Linha %d - Erro sintático: %s\n",yylineno,yytext);
 }
 
 typedef struct no{

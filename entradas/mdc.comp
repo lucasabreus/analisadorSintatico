@@ -1,5 +1,4 @@
-/* Programa para calcular o mdc segundo o algoritmo de Euclides. */
-
+/* Programa para calcular o mdc segundo o algoritmo de Euclides & */
 int x[10];
 
 int mdc (int u, int v)
@@ -15,5 +14,5 @@ void main(void)
 
   x = 5;
   y = 10;
-  z = mdc(x, y);
+  z = mdc;
 }
